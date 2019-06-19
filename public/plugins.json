@@ -1,0 +1,13 @@
+[
+  {
+    "name": "ExternalConferenceWarmTransferPlugin",
+    "version": "0.0.0",
+    "class": "ExternalConferenceWarmTransferPlugin",
+    "requires": [
+      {
+        "@twilio/flex-ui": "^1"
+      }
+    ],
+    "src": "http://localhost:3000/plugin-external-conference-warm-transfer.js"
+  }
+]
