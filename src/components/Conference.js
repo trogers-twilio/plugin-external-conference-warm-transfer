@@ -197,7 +197,9 @@ export class ConferenceButton2 extends React.Component {
     })
       .then(response => response.json())
       .then(json => {
-        console.log('Participant updated');
+        if (json && json.status === 200) {
+          console.log('Participant updated:\r\n  ', json);
+        }
       });
 
     fetch(`https://${this.props.url}/add-conference-participant`, {
@@ -243,7 +245,7 @@ ConferenceButton2.propTypes = {
 const ConferenceButton = withTaskContext(ConferenceButton2);
 
 const mapStateToProps = state => {
-  const componentViewStates = state.flex.view.componentViewStates;
+  const componentViewStates = state.flex.view.componentViewStates || {};
   const customParticipants = componentViewStates.customParticipants || {};
   return {
     from: state.flex.worker.attributes.phone,
