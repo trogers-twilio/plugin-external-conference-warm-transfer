@@ -32,6 +32,8 @@ export default class ExternalConferenceWarmTransferPlugin extends FlexPlugin {
       key="conference-modal"
     />, { sortOrder: 100 });
 
+    // This component doesn't render anything to the UI, it just monitors
+    // conference changes and takes action as necessary
     flex.CallCanvas.Content.add(<ConferenceMonitor
       key="conference-monitor"
     />, { sortOrder: 999 });
