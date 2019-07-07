@@ -36,6 +36,8 @@ module.exports = {
     'no-restricted-syntax': 0,
     'react/forbid-prop-types': 0,
     'no-extra-boolean-cast': 0,
-    'prefer-destructuring': 0
+    'prefer-destructuring': 0,
+    'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
+    'arrow-body-style': 0,
   },
 };
