@@ -1,9 +1,11 @@
 import { FlexPlugin } from 'flex-plugin';
 import React from 'react';
-import ConferenceButton from './components/Conference';
 import ParticipantActionsButtons from './components/ParticipantActionsButtons';
 import ParticipantName from './components/ParticipantName';
 import ParticipantStatus from './components/ParticipantStatus';
+import ParticipantStatusContainer from './components/ParticipantStatusContainer';
+import ConferenceButton from './components/ConferenceButton';
+import ConferenceDialog from './components/ConferenceDialog';
 import './actions/CustomActions';
 
 const PLUGIN_NAME = 'ExternalConferenceWarmTransferPlugin';
@@ -21,13 +23,18 @@ export default class ExternalConferenceWarmTransferPlugin extends FlexPlugin {
    * @param manager { import('@twilio/flex-ui').Manager }
    */
   init(flex, manager) {
-    flex.CallCanvas.Content.add(<ConferenceButton
+    flex.CallCanvasActions.Content.add(<ConferenceButton
       key="conference"
+    />, { sortOrder: 2 });
+
+    flex.CallCanvas.Content.add(<ConferenceDialog
+      key="conference-modal"
       url={manager.serviceConfiguration.runtime_domain}
-    />);
+    />, { sortOrder: 100 });
 
     const isUnknownParticipant = props => props.participant.participantType === 'unknown';
 
+    // This section is for the full width ParticipantCanvas
     flex.ParticipantCanvas.Content.remove('actions');
     flex.ParticipantCanvas.Content.add(
       <ParticipantActionsButtons
@@ -40,11 +47,25 @@ export default class ExternalConferenceWarmTransferPlugin extends FlexPlugin {
         key="custom-name"
       />, { sortOrder: 1, if: isUnknownParticipant }
     );
-    flex.ParticipantCanvas.Content.remove('status', { if: isUnknownParticipant });
+    flex.ParticipantCanvas.Content.remove('status');
     flex.ParticipantCanvas.Content.add(
       <ParticipantStatus
         key="custom-status"
-      />, { sortOrder: 2, if: isUnknownParticipant }
+      />, { sortOrder: 2 }
+    );
+
+    // // This section is for the narrow width ParticipantCanvas, which changes to List Mode
+    flex.ParticipantCanvas.ListItem.Content.remove('statusContainer');
+    flex.ParticipantCanvas.ListItem.Content.add(
+      <ParticipantStatusContainer
+        key="custom-statusContainer"
+      />, { sortOrder: 1 }
+    );
+    flex.ParticipantCanvas.ListItem.Content.remove('actions');
+    flex.ParticipantCanvas.ListItem.Content.add(
+      <ParticipantActionsButtons
+        key="custom-actions"
+      />, { sortOrder: 10 }
     );
   }
 }

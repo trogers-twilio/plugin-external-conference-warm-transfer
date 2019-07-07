@@ -18,6 +18,15 @@ const ActionsContainer = styled('div')`
   }
 `;
 
+const ActionsContainerListItem = styled('div')`
+  button {
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+`;
+
 class ParticipantActionsButtons extends React.Component {
   componentWillUnmount() {
     const { participant } = this.props;
@@ -80,7 +89,7 @@ class ParticipantActionsButtons extends React.Component {
     return (
       <React.Fragment>
         <IconButton
-          icon={participant.onHold ? 'HoldLargeBold' : 'HoldLarge'}
+          icon={participant.onHold ? 'HoldOff' : 'Hold'}
           className="ParticipantCanvas-HoldButton"
           disabled={!TaskHelper.canHold(task) || participant.status !== 'joined'}
           onClick={this.onHoldParticipantClick}
@@ -88,7 +97,7 @@ class ParticipantActionsButtons extends React.Component {
           title={holdParticipantTooltip}
         />
         <IconButton
-          icon="HangupLarge"
+          icon="Hangup"
           className="ParticipantCanvas-HangupButton"
           onClick={this.showKickConfirmation}
           themeOverride={theme.ParticipantsCanvas.ParticipantCanvas.HangUpButton}
@@ -99,14 +108,22 @@ class ParticipantActionsButtons extends React.Component {
   }
 
   render() {
-    return (
-      <ActionsContainer className="ParticipantCanvas-Actions">
-        {this.props.showKickConfirmation
-          ? this.renderKickConfirmation()
-          : this.renderActions()
-        }
-      </ActionsContainer>
-    );
+    return this.props.listMode
+      ? (
+        <ActionsContainerListItem className="ParticipantCanvas-Actions">
+          {this.props.showKickConfirmation
+            ? this.renderKickConfirmation()
+            : this.renderActions()
+          }
+        </ActionsContainerListItem>
+      ) : (
+        <ActionsContainer className="ParticipantCanvas-Actions">
+          {this.props.showKickConfirmation
+            ? this.renderKickConfirmation()
+            : this.renderActions()
+          }
+        </ActionsContainer>
+      );
   }
 }
 

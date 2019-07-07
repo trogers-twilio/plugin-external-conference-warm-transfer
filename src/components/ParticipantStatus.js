@@ -8,7 +8,11 @@ import {
 } from '@twilio/flex-ui';
 
 const Status = styled('div')`
-    font-size: 12px;
+  font-size: 12px;
+`;
+
+const StatusListItem = styled('div')`
+  font-size: 10px;
 `;
 
 class ParticipantStatus extends React.PureComponent {
@@ -29,11 +33,16 @@ class ParticipantStatus extends React.PureComponent {
       statusTemplate = templates.CallParticipantStatusKickConfirmation;
     }
 
-    return (
-      <Status className="ParticipantCanvas-Status">
-        <Template source={statusTemplate} />
-      </Status>
-    );
+    return this.props.listMode
+      ? (
+        <StatusListItem className="ParticipantCanvas-Status">
+          <Template source={statusTemplate} />
+        </StatusListItem>
+      ) : (
+        <Status className="ParticipantCanvas-Status">
+          <Template source={statusTemplate} />
+        </Status>
+      );
   }
 }
 

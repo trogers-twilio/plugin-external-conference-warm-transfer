@@ -1,93 +1,43 @@
-import { Actions, Manager } from '@twilio/flex-ui';
+import { Actions } from '@twilio/flex-ui';
+import ConferenceService from '../services/ConferenceService';
 
-const manager = Manager.getInstance();
-const runtimeUrl = `https://${manager.serviceConfiguration.runtime_domain}`;
-
-function toggleHold(conference, participant, hold, original, payload) {
-  const { task } = payload;
-  const token = Manager.getInstance().user.token;
-
-  return fetch(`${task.attributes.url || runtimeUrl}/hold-conference-participant`, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    method: 'POST',
-    body: `token=${token}&conference=${conference}&participant=${participant}&hold=${hold}`
-  })
-    .then(() => {
-      console.log(`${hold ? 'Hold' : 'Unhold'} successful for participant`, participant);
-    })
-    .catch(error => {
-      console.error(`Error ${hold ? 'holding' : 'unholding'} participant ${participant}\r\n`, error);
-    });
-}
-
-function removeParticipant(conference, participant) {
-  const token = Manager.getInstance().user.token;
-
-  return fetch(`${runtimeUrl}/remove-conference-participant`, {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    method: 'POST',
-    body: `token=${token}&conference=${conference}&participant=${participant}`
-  })
-    .then(() => {
-      console.log(`Participant ${participant} removed from conference`);
-    })
-    .catch(error => {
-      console.error(`Error removing participant ${participant} from conference\r\n`, error);
-    });
-}
-
-Actions.replaceAction('HoldParticipant', (payload, original) => new Promise(resolve => {
+const toggleHold = (payload, original, hold) => {
   const { task, targetSid, participantType } = payload;
 
   if (participantType !== 'unknown') {
-    original(payload);
-  } else {
-    const conference = task.attributes.conference.sid;
-    const participant = targetSid;
-    const hold = true;
-
-    console.log('Holding participant', participant);
-    toggleHold(conference, participant, hold, original, payload);
+    return original(payload);
   }
 
-  resolve();
-}));
+  const conference = task.attributes.conference.sid;
+  const participantSid = targetSid;
 
-Actions.replaceAction('UnholdParticipant', (payload, original) => new Promise(resolve => {
+  if (hold) {
+    console.log('Holding participant', participantSid);
+    return ConferenceService.holdParticipant(conference, participantSid);
+  }
+
+  console.log('Unholding participant', participantSid);
+  return ConferenceService.unholdParticipant(conference, participantSid);
+};
+
+Actions.replaceAction('HoldParticipant', (payload, original) => {
+  return toggleHold(payload, original, true);
+});
+
+Actions.replaceAction('UnholdParticipant', (payload, original) => {
+  return toggleHold(payload, original, false);
+});
+
+Actions.replaceAction('KickParticipant', (payload, original) => {
   const { task, targetSid, participantType } = payload;
-
-  if (participantType !== 'unknown') {
-    original(payload);
-  } else {
-    const conference = task.attributes.conference.sid;
-    const participant = targetSid;
-    const hold = false;
-
-    console.log('Unholding participant', participant);
-    toggleHold(conference, participant, hold, original, payload);
-  }
-
-  resolve();
-}));
-
-Actions.replaceAction('KickParticipant', (payload, original) => new Promise(resolve => {
-  const {
-    task, targetSid, participantType
-  } = payload;
 
   if (participantType === 'worker') {
-    original(payload);
-  } else {
-    const conference = task.attributes.conference.sid;
-    const participant = targetSid;
-
-    console.log(`Removing participant ${participant} from conference`);
-    removeParticipant(conference, participant);
+    return original(payload);
   }
 
-  resolve();
-}));
+  const conference = task.attributes.conference.sid;
+  const participantSid = targetSid;
+
+  console.log(`Removing participant ${participantSid} from conference`);
+  return ConferenceService.removeParticipant(conference, participantSid);
+});
