@@ -60,18 +60,21 @@ export default class ExternalConferenceWarmTransferPlugin extends FlexPlugin {
       />, { sortOrder: 2 }
     );
 
-    // // This section is for the narrow width ParticipantCanvas, which changes to List Mode
-    flex.ParticipantCanvas.ListItem.Content.remove('statusContainer');
-    flex.ParticipantCanvas.ListItem.Content.add(
-      <ParticipantStatusContainer
-        key="custom-statusContainer"
-      />, { sortOrder: 1 }
-    );
-    flex.ParticipantCanvas.ListItem.Content.remove('actions');
-    flex.ParticipantCanvas.ListItem.Content.add(
-      <ParticipantActionsButtons
-        key="custom-actions"
-      />, { sortOrder: 10 }
-    );
+    // This section is for the narrow width ParticipantCanvas, which changes to List Mode,
+    // introduced in Flex 1.11.0. ListItem did not exist on ParticipantCanvas before 1.11.0.
+    if (flex.ParticipantCanvas.ListItem) {
+      flex.ParticipantCanvas.ListItem.Content.remove('statusContainer');
+      flex.ParticipantCanvas.ListItem.Content.add(
+        <ParticipantStatusContainer
+          key="custom-statusContainer"
+        />, { sortOrder: 1 }
+      );
+      flex.ParticipantCanvas.ListItem.Content.remove('actions');
+      flex.ParticipantCanvas.ListItem.Content.add(
+        <ParticipantActionsButtons
+          key="custom-actions"
+        />, { sortOrder: 10 }
+      );
+    }
   }
 }

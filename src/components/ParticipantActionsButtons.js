@@ -5,6 +5,7 @@ import {
   Actions,
   IconButton,
   TaskHelper,
+  VERSION as FlexVersion,
   withTheme
 } from '@twilio/flex-ui';
 
@@ -86,10 +87,16 @@ class ParticipantActionsButtons extends React.Component {
       ? 'Hold Participant' : 'Unhold Participant';
     const kickParticipantTooltip = 'Remove Participant';
 
+    // The name of the hold icons changed in Flex 1.11.0 to HoldOff.
+    // Since the minimum requirement is 1.10.0 and there is no version between
+    // 1.10.0 and 1.11.0, the check is only needed for version 1.10.0.
+    const holdIcon = FlexVersion === '1.10.0' ? 'HoldLarge' : 'Hold';
+    const unholdIcon = FlexVersion === '1.10.0' ? 'HoldLargeBold' : 'HoldOff';
+
     return (
       <React.Fragment>
         <IconButton
-          icon={participant.onHold ? 'HoldOff' : 'Hold'}
+          icon={participant.onHold ? `${unholdIcon}` : `${holdIcon}`}
           className="ParticipantCanvas-HoldButton"
           disabled={!TaskHelper.canHold(task) || participant.status !== 'joined'}
           onClick={this.onHoldParticipantClick}
