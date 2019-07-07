@@ -45,7 +45,6 @@ class ParticipantName extends React.Component {
       .then(response => response.json())
       .then(json => {
         if (json) {
-          console.warn('Call properties:\r\n', json);
           const name = (json && json.to) || '';
           this.setState({ name });
         }
