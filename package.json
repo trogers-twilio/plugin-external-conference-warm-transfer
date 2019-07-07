@@ -12,7 +12,7 @@
     "eject": "craco eject"
   },
   "devDependencies": {
-    "@twilio/flex-ui": "^1.11.1",
+    "@twilio/flex-ui": "1.11.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-plugin-import": "^2.18.0",
