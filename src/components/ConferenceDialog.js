@@ -44,15 +44,7 @@ class ConferenceDialog extends React.Component {
 
   addConferenceParticipant = () => {
     const to = this.state.conferenceTo;
-    const { from, task, task: { taskSid } } = this.props;
-    const conference = task.attributes.conference.sid;
-    const customerSid = task.attributes.conference.participants.customer;
-
-    // Updating endConferenceOnExit so the agent can drop without ending the conference
-    this.props.task.sourceObject.updateParticipant({ endConferenceOnExit: false });
-
-    // Updating customer participant so conference doesn't end if they hangup\
-    ConferenceService.setEndConferenceOnExit(conference, customerSid, false);
+    const { from, task: { taskSid } } = this.props;
 
     // Adding entered number to the conference
     console.log(`Adding ${to} to conference`);

@@ -59,7 +59,7 @@ class ConferenceService {
         .then(response => response.json())
         .then(json => {
           if (json && json.status === 200) {
-            console.log('Participant updated:\r\n  ', json);
+            console.log(`Participant ${participantSid} updated:\r\n`, json);
             resolve();
           }
         })

@@ -6,6 +6,7 @@ import ParticipantStatus from './components/ParticipantStatus';
 import ParticipantStatusContainer from './components/ParticipantStatusContainer';
 import ConferenceButton from './components/ConferenceButton';
 import ConferenceDialog from './components/ConferenceDialog';
+import ConferenceMonitor from './components/ConferenceMonitor';
 import './actions/CustomActions';
 
 const PLUGIN_NAME = 'ExternalConferenceWarmTransferPlugin';
@@ -29,8 +30,11 @@ export default class ExternalConferenceWarmTransferPlugin extends FlexPlugin {
 
     flex.CallCanvas.Content.add(<ConferenceDialog
       key="conference-modal"
-      url={manager.serviceConfiguration.runtime_domain}
     />, { sortOrder: 100 });
+
+    flex.CallCanvas.Content.add(<ConferenceMonitor
+      key="conference-monitor"
+    />, { sortOrder: 999 });
 
     const isUnknownParticipant = props => props.participant.participantType === 'unknown';
 
