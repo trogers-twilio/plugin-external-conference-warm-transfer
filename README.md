@@ -1,5 +1,13 @@
 # Flex Plugin: External Conference & Warm Transfer
 
+## Flex UI Version Requirements
+**Minimum Flex UI version:**
+* 1.10.0
+
+**Tested Flex UI versions:**
+* 1.10.0
+* 1.11.1
+
 ## Flex Plugin documentation
 
 Twilio Flex Plugins allow you to customize the apperance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
@@ -50,7 +58,7 @@ Feel free to reference our [Twilio Function](https://www.twilio.com/docs/runtime
 ---
 ### **BETA NOTICE**
 
-Twilio Functions is currently available as a beta release. Some features are not yet implemented and others may be changed before the product is declared as Generally Available. Beta products are not covered by a Twilio SLA. 
+>Twilio Functions is currently available as a beta release. Some features are not yet implemented and others may be changed before the product is declared as Generally Available. Beta products are not covered by a Twilio SLA.
 
 See [this article for more information](https://support.twilio.com/hc/en-us/articles/115002413087-Twilio-Beta-product-support?_ga=2.26835069.1957551946.1560788968-58383505.1547509695) on beta product support.
 
