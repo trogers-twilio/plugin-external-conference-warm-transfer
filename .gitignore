@@ -63,3 +63,6 @@ typings/
 # Flex related ignore
 appConfig.js
 build/
+
+# OS Files
+.DS_Store
