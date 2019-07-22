@@ -42,21 +42,23 @@ class ParticipantActionsButtons extends React.Component {
 
   onHoldParticipantClick = () => {
     const { participant, task } = this.props;
+    const { callSid, workerSid } = participant;
     const participantType = participant.participantType;
     Actions.invokeAction(participant.onHold ? 'UnholdParticipant' : 'HoldParticipant', {
       participantType,
       task,
-      targetSid: participant.callSid
+      targetSid: participantType === 'worker' ? workerSid : callSid
     });
   };
 
   onKickParticipantConfirmClick = () => {
     const { participant, task } = this.props;
+    const { callSid, workerSid } = participant;
     const participantType = participant.participantType;
     Actions.invokeAction('KickParticipant', {
       participantType,
       task,
-      targetSid: participant.callSid
+      targetSid: participantType === 'worker' ? workerSid : callSid
     });
     this.hideKickConfirmation();
   };
