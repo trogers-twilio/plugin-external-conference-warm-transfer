@@ -54,7 +54,7 @@ class ParticipantActionsButtons extends React.Component {
   onKickParticipantConfirmClick = () => {
     const { participant, task } = this.props;
     const { callSid, workerSid } = participant;
-    const participantType = participant.participantType;
+    const { participantType } = participant;
     Actions.invokeAction('KickParticipant', {
       participantType,
       task,

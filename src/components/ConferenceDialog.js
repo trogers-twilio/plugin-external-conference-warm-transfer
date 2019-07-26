@@ -26,15 +26,17 @@ class ConferenceDialog extends React.Component {
   }
 
   handleKeyPress = e => {
-    const value = e.target.value;
     const key = e.key;
 
     if (key === 'Enter') {
       this.addConferenceParticipant();
       this.closeDialog();
-    } else {
-      this.setState({ conferenceTo: `${value}${key}` });
     }
+  }
+
+  handleChange = e => {
+    const value = e.target.value;
+    this.setState({ conferenceTo: value });
   }
 
   handleDialButton = () => {
@@ -42,13 +44,22 @@ class ConferenceDialog extends React.Component {
     this.closeDialog();
   }
 
-  addConferenceParticipant = () => {
+  addConferenceParticipant = async () => {
     const to = this.state.conferenceTo;
-    const { from, task: { taskSid } } = this.props;
+    const { from, task, task: { taskSid } } = this.props;
+    const conference = task && (task.conference || {});
+    const { conferenceSid } = conference;
 
     // Adding entered number to the conference
     console.log(`Adding ${to} to conference`);
-    ConferenceService.addParticipant(taskSid, from, to);
+    let participantCallSid;
+    try {
+      participantCallSid = await ConferenceService.addParticipant(taskSid, from, to);
+      ConferenceService.addConnectingParticipant(conferenceSid, participantCallSid, 'unknown');
+    } catch (error) {
+      console.error('Error adding conference participant:', error);
+    }
+    this.setState({ conferenceTo: '' });
   }
 
   render() {
@@ -67,7 +78,9 @@ class ConferenceDialog extends React.Component {
             id="conferenceNumber"
             label="Phone Number"
             fullWidth
+            value={this.state.conferenceTo}
             onKeyPress={this.handleKeyPress}
+            onChange={this.handleChange}
           />
         </DialogContent>
         <DialogActions>
