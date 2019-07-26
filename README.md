@@ -14,7 +14,7 @@ Twilio Flex Plugins allow you to customize the apperance and behavior of [Twilio
 
 ## Overview
 <img width="700px" src="images/external-conference-warm-transfer-demo.gif"/>
-This plugin gives workers the ability to add an external participant to an inbound call. Participant controls such as Hold Participant and Remove Participant work properly for each conference participant. After adding an external participant to the call, the worker can drop and the conference will continue with the remaining participants.
+This plugin gives workers the ability to add an external participant to an inbound call. Participant controls such as Hold Participant and Remove Participant work properly for each conference participant. After adding an external participant to the call, the worker can drop and the conference will continue with the remaining participants.  
 
 This workflow will allow workers to conference in external parties and perform a warm transfer by introducing the customer to the external party before disconnecting from the call.
 
