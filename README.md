@@ -20,6 +20,17 @@ This workflow will allow workers to conference in external parties and perform a
 
 ## Twilio Functions
 
+While this guide uses Twilio Functions for hosting the serverless code, you are free to use the platform of your choice for running server side code. If you decide to use something other than Twilio Functions, be sure to:
+
+* Make the necessary server side code changes to support your platform and language of choice
+* Update the plugin `fetch` statements to target the appropriate URL for each Function
+
+### **BETA NOTICE**
+
+>Twilio Functions is currently available as a beta release. Some features are not yet implemented and others may be changed before the product is declared as Generally Available. Beta products are not covered by a Twilio SLA.
+
+See [this article for more information](https://support.twilio.com/hc/en-us/articles/115002413087-Twilio-Beta-product-support?_ga=2.26835069.1957551946.1560788968-58383505.1547509695) on beta product support.
+
 ### Environment Variables
 The Twilio Functions this plugin depends on require `ACCOUNT_SID` and `AUTH_TOKEN` as environment variables in the context object. Perform the following steps to ensure these variables are available to your functions.
 
@@ -56,14 +67,6 @@ Please follow these steps for each file in the `/functions` directory before att
 ### More Info
 Feel free to reference our [Twilio Function](https://www.twilio.com/docs/runtime/functions) documentation for more details on Functions and how they work.
 
----
-### **BETA NOTICE**
-
->Twilio Functions is currently available as a beta release. Some features are not yet implemented and others may be changed before the product is declared as Generally Available. Beta products are not covered by a Twilio SLA.
-
-See [this article for more information](https://support.twilio.com/hc/en-us/articles/115002413087-Twilio-Beta-product-support?_ga=2.26835069.1957551946.1560788968-58383505.1547509695) on beta product support.
-
----
 ## Flex Plugin
 
 ### Setup
