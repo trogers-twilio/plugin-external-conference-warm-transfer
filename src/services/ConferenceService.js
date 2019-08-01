@@ -158,40 +158,6 @@ class ConferenceService {
         });
     });
   }
-
-  // removeConnectingParticipant = participantSid => {
-  //   return new Promise((resolve, reject) => {
-  //     const token = this._getUserToken();
-
-  //     fetch(`https://${this.serviceBaseUrl}/remove-conference-participant`, {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       method: 'POST',
-  //       body: JSON.stringify({
-  //         token,
-  //         callSid: participantSid,
-  //         parameters: {
-  //           status: 'completed'
-  //         }
-  //       })
-  //     })
-  //       .then(response => response.json())
-  //       .then(json => {
-  //         if (json && json.status === 200) {
-  //           console.log(`Participant ${participantSid} removed from conference`);
-  //           resolve();
-  //         } else {
-  //           console.log(`Error removing participant ${participantSid} from conference\r\n`, json);
-  //           reject();
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.error(`Error removing participant ${participantSid} from conference\r\n`, error);
-  //         reject(error);
-  //       });
-  //   });
-  // }
 }
 
 const conferenceService = new ConferenceService();
