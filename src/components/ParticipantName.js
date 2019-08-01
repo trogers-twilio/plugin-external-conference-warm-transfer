@@ -65,15 +65,10 @@ class ParticipantName extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const { serviceBaseUrl } = state.flex.config;
-  const { participant } = ownProps;
-  const componentViewStates = state.flex.view.componentViewStates;
-  const customParticipants = componentViewStates.customParticipants || {};
-  const participantState = customParticipants[participant.callSid];
 
   return {
-    participantName: participantState && participantState.name,
     serviceBaseUrl,
   };
 };
