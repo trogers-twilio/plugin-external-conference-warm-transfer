@@ -113,7 +113,7 @@ class ConferenceService {
         const fakeSource = {
           connecting: true,
           participant_type: participantType,
-          status: 'connecting'
+          status: 'joined'
         };
         const fakeParticipant = new ConferenceParticipant(fakeSource, callSid);
         console.log('Adding fake participant:', fakeParticipant);
