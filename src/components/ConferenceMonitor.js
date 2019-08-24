@@ -28,7 +28,7 @@ class ConferenceMonitor extends React.Component {
   }
 
   handleMoreThanTwoParticipants = (conferenceSid, participants) => {
-    console.log(participants);
+    console.log('More than two conference participants. Setting endConferenceOnExit to false for all participants.');
     this.setEndConferenceOnExit(conferenceSid, participants, false);
   }
 
