@@ -59,6 +59,9 @@ exports.handler = async function(context, event, callback) {
     .participants(participant)
     .update({
       endConferenceOnExit
+    }).catch(e => {
+       console.error(e);
+       return {};
     });
   console.log('Participant response properties:');
   Object.keys(participantResponse).forEach(key => {

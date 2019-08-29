@@ -40,7 +40,8 @@ class ConferenceMonitor extends React.Component {
   setEndConferenceOnExit = async(conferenceSid, participants, endConferenceOnExit) => {
     const promises = [];
     participants.forEach(p => {
-      console.log(`Participant ${p.callSid} status: ${p.status}`);
+      console.log(`setting endConferenceOnExit = ${endConferenceOnExit} for callSid: ${p.callSid} status: ${p.status}`);
+      if (p.connecting) {return} //skip setting end conference on connecting parties as it will fail
       promises.push(
         ConferenceService.setEndConferenceOnExit(conferenceSid, p.callSid, endConferenceOnExit)
       );
